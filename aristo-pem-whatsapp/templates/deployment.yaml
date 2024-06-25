@@ -44,11 +44,11 @@ spec:
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
-              port: {{ .Values.config.serverPort }}    
+              port: {{ .Values.service.port }}
           readinessProbe:
             initialDelaySeconds: 5
             tcpSocket:
-              port: {{ .Values.config.serverPort }}
+              port: {{ .Values.service.port }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
