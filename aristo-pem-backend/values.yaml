@@ -1,0 +1,127 @@
+# Default values for aristo-pem-backend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+config:
+  serviceType: all
+  serverPort: 8080
+  grpcServerPort: 9090
+  db:
+    connectionString: ""
+    name: "aristo"
+  keycloak:
+    host: http://localhost:8081
+    adminUser: admin
+    adminPassword: change_it
+    realm: realm
+    clientId: client_id
+    idOfClient: id_of_client
+    clientSecret: client_secret
+  services:
+    sourceServiceHost: localhost:9090
+    messageServiceHost: localhost:9090
+    brandServiceHost: localhost:9090
+    seriesServiceHost: localhost:9090
+    modelServiceHost: localhost:9090
+    queueServiceHost: localhost:9090
+    workQueueServiceHost: localhost:9090
+    priceServiceHost: localhost:9090
+    fileProcessorServiceHost: localhost:9090
+    whatsAppServiceHost: http://aristo-pem-whatsapp:3005
+  s3:
+    region: ap-southeast-1
+    publicBucket: public-bucket
+    privateBucket: private-bucket
+    secretKey: YOUR_S3_SECRET_KEY
+    accessKey: YOUR_S3_ACCESS_KEY
+  kafka:
+    brokers: kafka
+    topic:
+      importFile: import-file
+    consumerGroup:
+      importFile: import-file
+replicaCount: 1
+image:
+  repository:  jasonchan0510/aristo
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+imagePullSecrets:
+- name: regcred-dh
+nameOverride: ""
+fullnameOverride: ""
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+podAnnotations: {}
+podLabels: {}
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+  hosts:
+    - host: pem-api.primemory.hk
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: aristo-pem-api-cert-secret
+      hosts:
+        - pem-api.primemory.hk
+resources: {}
+# We usually recommend not to specify default resources and to leave this as a conscious
+# choice for the user. This also increases chances charts run on environments with little
+# resources, such as Minikube. If you do want to specify resources, uncomment the following
+# lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+# Additional volumes on the output Deployment definition.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

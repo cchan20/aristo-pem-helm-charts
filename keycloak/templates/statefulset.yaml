@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "keycloak.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "keycloak.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "keycloak.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "keycloak.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: keycloak
+          image: bitnami/keycloak:22.0.5
+          env:
+            - name: KEYCLOAK_EXTRA_ARGS
+              value: --hostname-strict-https=true
+            - name: KC_HOSTNAME
+              value: "{{.Values.config.host}}"
+            - name: KC_HOSTNAME_ADMIN_URL
+              value: "https://{{.Values.config.host}}"
+            - name: KC_HOSTNAME_STRICT_HTTPS
+              value: "true"
+            - name: KEYCLOAK_PROXY
+              value: edge
+          envFrom:
+            - secretRef:
+                name: {{ include "keycloak.fullname" . }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 5
+            tcpSocket:
+              port: 8080
+          readinessProbe:
+            initialDelaySeconds: 30
+            failureThreshold: 5
+            tcpSocket:
+              port: 8080
+
