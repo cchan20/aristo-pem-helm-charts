@@ -61,8 +61,6 @@ spec:
             value: "{{.Values.config.serverPort}}"
           - name: GRPC_SERVER_PORT
             value: "{{.Values.config.grpcServerPort}}"
-          - name: SERVICE_TYPE
-            value: "{{.Values.config.serviceType}}"
           - name: SOURCE_SERVICE_HOST
             value: "{{.Values.config.services.sourceServiceHost}}"
           - name: MESSAGE_SERVICE_HOST
