@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aristo-pem-backend.labels" . | nindent 4 }}
-    service: { { include "aristo-pem-backend.fullname" . } }-message
+    service: {{ include "aristo-pem-backend.fullname" . }}-message
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -15,4 +15,4 @@ spec:
       name: grpc
   selector:
     {{- include "aristo-pem-backend.selectorLabels" . | nindent 4 }}
-    service: { { include "aristo-pem-backend.fullname" . } }-message
+    service: {{ include "aristo-pem-backend.fullname" . }}-message
