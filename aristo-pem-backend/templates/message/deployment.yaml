@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "aristo-pem-backend.fullname" . }}-message
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "aristo-pem-backend.labels" . | nindent 4 }}
+    service: { { include "aristo-pem-backend.fullname" . } }-message
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "aristo-pem-backend.selectorLabels" . | nindent 6 }}
+      service: { { include "aristo-pem-backend.fullname" . } }-message
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "aristo-pem-backend.labels" . | nindent 8 }}
+        service: { { include "aristo-pem-backend.fullname" . } }-message
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "aristo-pem-backend.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ .Values.config.grpcServerPort }}
+              protocol: TCP
+          envFrom:
+          - secretRef:
+              name: {{ include "aristo-pem-backend.fullname" . }}
+          env:
+          - name: RUN_MODE
+            value: "K8"
+          - name: GIN_MODE
+            value: "release"
+          - name: SERVICE_TYPE
+            value: "message"
+          - name: SERVER_PORT
+            value: "{{.Values.config.serverPort}}"
+          - name: GRPC_SERVER_PORT
+            value: "{{.Values.config.grpcServerPort}}"
+          - name: SERVICE_TYPE
+            value: "{{.Values.config.serviceType}}"
+          - name: SOURCE_SERVICE_HOST
+            value: "{{.Values.config.services.sourceServiceHost}}"
+          - name: MESSAGE_SERVICE_HOST
+            value: "{{.Values.config.services.messageServiceHost}}"
+          - name: BRAND_SERVICE_HOST
+            value: "{{.Values.config.services.brandServiceHost}}"
+          - name: SERIES_SERVICE_HOST
+            value: "{{.Values.config.services.seriesServiceHost}}"
+          - name: MODEL_SERVICE_HOST
+            value: "{{.Values.config.services.modelServiceHost}}"
+          - name: QUEUE_SERVICE_HOST
+            value: "{{.Values.config.services.queueServiceHost}}"
+          - name: WORK_QUEUE_SERVICE_HOST
+            value: "{{.Values.config.services.workQueueServiceHost}}"
+          - name: PRICE_SERVICE_HOST
+            value: "{{.Values.config.services.priceServiceHost}}"
+          - name: FILE_PROCESSOR_SERVICE_HOST
+            value: "{{.Values.config.services.fileProcessorServiceHost}}"
+          - name: WHATSAPP_SERVICE_HOST
+            value: "{{.Values.config.services.whatsAppServiceHost}}"
+          - name: KAFKA_BROKERS
+            value: "{{.Values.config.kafka.brokers}}"
+          - name: KT__IMPORT_FILE
+            value: "{{.Values.config.kafka.topic.importFile}}"
+          - name: KCG__IMPORT_FILE
+            value: "{{.Values.config.kafka.consumerGroup.importFile}}"
+          livenessProbe:
+            initialDelaySeconds: 15
+            tcpSocket:
+              port: {{ .Values.config.serverPort }}    
+          readinessProbe:
+            initialDelaySeconds: 5
+            tcpSocket:
+              port: {{ .Values.config.serverPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
