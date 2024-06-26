@@ -1,20 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "aristo-pem-backend.fullname" . }}
+  name: {{ include "aristo-pem-backend.fullname" . }}-queue
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aristo-pem-backend.labels" . | nindent 4 }}
+    service: {{ include "aristo-pem-backend.fullname" . }}-queue
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
     - port: {{ .Values.config.grpcServerPort }}
       targetPort: grpc
       protocol: TCP
       name: grpc
   selector:
     {{- include "aristo-pem-backend.selectorLabels" . | nindent 4 }}
+    service: {{ include "aristo-pem-backend.fullname" . }}-queue

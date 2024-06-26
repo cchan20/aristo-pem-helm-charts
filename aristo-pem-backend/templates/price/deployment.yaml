@@ -1,10 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "aristo-pem-backend.fullname" . }}
+  name: {{ include "aristo-pem-backend.fullname" . }}-price
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aristo-pem-backend.labels" . | nindent 4 }}
+    service: {{ include "aristo-pem-backend.fullname" . }}-price
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -12,6 +13,7 @@ spec:
   selector:
     matchLabels:
       {{- include "aristo-pem-backend.selectorLabels" . | nindent 6 }}
+      service: {{ include "aristo-pem-backend.fullname" . }}-price
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,6 +22,7 @@ spec:
       {{- end }}
       labels:
         {{- include "aristo-pem-backend.labels" . | nindent 8 }}
+        service: {{ include "aristo-pem-backend.fullname" . }}-price
 	{{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -52,6 +55,8 @@ spec:
             value: "K8"
           - name: GIN_MODE
             value: "release"
+          - name: SERVICE_TYPE
+            value: "price"
           - name: SERVER_PORT
             value: "{{.Values.config.serverPort}}"
           - name: GRPC_SERVER_PORT
@@ -67,7 +72,7 @@ spec:
           - name: SERIES_SERVICE_HOST
             value: "{{.Values.config.services.seriesServiceHost}}"
           - name: MODEL_SERVICE_HOST
-            value: "{{.Values.config.services.modelServiceHost}}"
+            value: "{{.Values.config.services.watchModelServiceHost}}"
           - name: QUEUE_SERVICE_HOST
             value: "{{.Values.config.services.queueServiceHost}}"
           - name: WORK_QUEUE_SERVICE_HOST

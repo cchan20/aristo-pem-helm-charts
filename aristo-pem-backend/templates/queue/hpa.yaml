@@ -2,15 +2,16 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "aristo-pem-backend.fullname" . }}
+  name: {{ include "aristo-pem-backend.fullname" . }}-queue
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "aristo-pem-backend.labels" . | nindent 4 }}
+    service: {{ include "aristo-pem-backend.fullname" . }}-queue
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "aristo-pem-backend.fullname" . }}
+    name: {{ include "aristo-pem-backend.fullname" . }}-queue
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

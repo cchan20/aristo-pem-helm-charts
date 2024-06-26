@@ -18,15 +18,15 @@ config:
     idOfClient: id_of_client
     clientSecret: client_secret
   services:
-    sourceServiceHost: localhost:9090
-    messageServiceHost: localhost:9090
-    brandServiceHost: localhost:9090
-    seriesServiceHost: localhost:9090
-    modelServiceHost: localhost:9090
-    queueServiceHost: localhost:9090
-    workQueueServiceHost: localhost:9090
-    priceServiceHost: localhost:9090
-    fileProcessorServiceHost: localhost:9090
+    sourceServiceHost: aristo-pem-backend-message:9090
+    messageServiceHost: aristo-pem-backend-message:9090
+    brandServiceHost: aristo-pem-backend-watch:9090
+    seriesServiceHost: aristo-pem-backend-watch:9090
+    watchModelServiceHost: aristo-pem-backend-watch:9090
+    queueServiceHost: aristo-pem-backend-queue:9090
+    workQueueServiceHost: aristo-pem-backend-queue:9090
+    priceServiceHost: aristo-pem-backend-price:9090
+    fileProcessorServiceHost: aristo-pem-backend-file-processor:9090
     whatsAppServiceHost: http://aristo-pem-whatsapp:3005
   s3:
     region: ap-southeast-1
