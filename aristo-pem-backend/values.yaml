@@ -3,7 +3,6 @@
 # Declare variables to be passed into your templates.
 
 config:
-  serviceType: all
   serverPort: 8080
   grpcServerPort: 9090
   db:
