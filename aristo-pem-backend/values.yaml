@@ -10,7 +10,7 @@ config:
     name: "aristo"
   keycloak:
     host: http://localhost:8081
-    adminUser: admin
+    adminUsername: admin
     adminPassword: change_it
     realm: realm
     clientId: client_id
