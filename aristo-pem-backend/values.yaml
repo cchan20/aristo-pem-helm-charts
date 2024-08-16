@@ -26,6 +26,7 @@ config:
     workQueueServiceHost: aristo-pem-backend-queue:9090
     priceServiceHost: aristo-pem-backend-price:9090
     fileProcessorServiceHost: aristo-pem-backend-file-processor:9090
+    dashboardServiceHost: aristo-pem-backend-dashboard:9090
     whatsAppServiceHost: http://aristo-pem-whatsapp:3005
   s3:
     region: ap-southeast-1
@@ -37,8 +38,10 @@ config:
     brokers: kafka
     topic:
       importFile: import-file
+      updateDashboard: update-dashboard
     consumerGroup:
       importFile: import-file
+      updateDashboard: update-dashboard
 replicaCount: 1
 image:
   repository:  jasonchan0510/aristo

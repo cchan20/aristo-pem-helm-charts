@@ -79,6 +79,8 @@ spec:
             value: "{{.Values.config.services.priceServiceHost}}"
           - name: FILE_PROCESSOR_SERVICE_HOST
             value: "{{.Values.config.services.fileProcessorServiceHost}}"
+          - name: DASHBOARD_SERVICE_HOST
+            value: "{{.Values.config.services.dashboardServiceHost}}"
           - name: WHATSAPP_SERVICE_HOST
             value: "{{.Values.config.services.whatsAppServiceHost}}"
           - name: KAFKA_BROKERS
@@ -87,6 +89,10 @@ spec:
             value: "{{.Values.config.kafka.topic.importFile}}"
           - name: KCG__IMPORT_FILE
             value: "{{.Values.config.kafka.consumerGroup.importFile}}"
+          - name: KT__UPDATE_DASHBOARD
+            value: "{{.Values.config.kafka.topic.updateDashboard}}"
+          - name: KCG__UPDATE_DASHBOARD
+            value: "{{.Values.config.kafka.consumerGroup.updateDashboard}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
