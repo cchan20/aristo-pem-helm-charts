@@ -22,12 +22,15 @@ config:
     brandServiceHost: aristo-pem-backend-watch:9090
     seriesServiceHost: aristo-pem-backend-watch:9090
     watchModelServiceHost: aristo-pem-backend-watch:9090
+    masterSyncServiceHost: aristo-pem-backend-master-sync:9090
     queueServiceHost: aristo-pem-backend-queue:9090
     workQueueServiceHost: aristo-pem-backend-queue:9090
     priceServiceHost: aristo-pem-backend-price:9090
     fileProcessorServiceHost: aristo-pem-backend-file-processor:9090
     dashboardServiceHost: aristo-pem-backend-dashboard:9090
     whatsAppServiceHost: http://aristo-pem-whatsapp:3005
+    aristoMasterServiceHost: ARISTO_SERVICE_HOST
+    aristoMasterServiceApiKey: ARISTO_SERVICE_API_KEY
   s3:
     region: ap-southeast-1
     publicBucket: public-bucket

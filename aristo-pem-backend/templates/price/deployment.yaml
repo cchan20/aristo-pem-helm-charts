@@ -93,6 +93,12 @@ spec:
             value: "{{.Values.config.kafka.topic.updateDashboard}}"
           - name: KCG__UPDATE_DASHBOARD
             value: "{{.Values.config.kafka.consumerGroup.updateDashboard}}"
+          - name: MASTER_SYNC_SERVICE_HOST
+            value: "{{.Values.config.services.masterSyncServiceHost}}"
+          - name: ARISTO_MASTER_SERVICE_HOST
+            value: "{{.Values.config.services.aristoMasterServiceHost}}"
+          - name: ARISTO_MASTER_SERVICE_API_KEY
+            value: "{{.Values.config.services.aristoMasterServiceApiKey}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
