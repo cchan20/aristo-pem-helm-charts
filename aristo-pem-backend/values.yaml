@@ -28,6 +28,7 @@ config:
     priceServiceHost: aristo-pem-backend-price:9090
     fileProcessorServiceHost: aristo-pem-backend-file-processor:9090
     dashboardServiceHost: aristo-pem-backend-dashboard:9090
+    timeTrackingServiceHost: aristo-pem-backend-dashboard:9090
     whatsAppServiceHost: http://aristo-pem-whatsapp:3005
     aristoMasterServiceHost: ARISTO_SERVICE_HOST
     aristoMasterServiceApiKey: ARISTO_SERVICE_API_KEY

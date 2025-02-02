@@ -81,6 +81,8 @@ spec:
             value: "{{.Values.config.services.fileProcessorServiceHost}}"
           - name: DASHBOARD_SERVICE_HOST
             value: "{{.Values.config.services.dashboardServiceHost}}"
+          - name: TIME_TRACKING_SERVICE_HOST
+            value: "{{.Values.config.services.timeTrackingServiceHost}}"
           - name: WHATSAPP_SERVICE_HOST
             value: "{{.Values.config.services.whatsAppServiceHost}}"
           - name: KAFKA_BROKERS
