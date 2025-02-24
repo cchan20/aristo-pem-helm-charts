@@ -21,10 +21,7 @@ spec:
           image: bitnami/redis:7.4.2
           env:
             - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "redis.fullname" . }}
-                  key: REDIS_PASSWORD
+              value: "{{.Values.config.redisPassword}}"
           ports:
             - name: controller
               containerPort: 6379
