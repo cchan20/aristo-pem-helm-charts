@@ -1,6 +1,7 @@
 config:
   storageClass: ebs-sc
   storageSize: 5Gi
+  redisPassword: 9aNzS7K23V6m
 
 nameOverride: ""
 fullnameOverride: ""
