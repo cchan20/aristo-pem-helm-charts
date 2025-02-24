@@ -46,6 +46,10 @@ config:
     consumerGroup:
       importFile: import-file
       updateDashboard: update-dashboard
+  redis:
+    host: redis
+    username: default
+    password: 9aNzS7K23V6m
 replicaCount: 1
 image:
   repository:  jasonchan0510/aristo

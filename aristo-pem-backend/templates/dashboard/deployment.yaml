@@ -85,6 +85,12 @@ spec:
             value: "{{.Values.config.services.timeTrackingServiceHost}}"
           - name: WHATSAPP_SERVICE_HOST
             value: "{{.Values.config.services.whatsAppServiceHost}}"
+          - name: REDIS_HOST
+            value: "{{.Values.config.redis.host}}"
+          - name: REDIS_USERNAME
+            value: "{{.Values.config.redis.username}}"
+          - name: REDIS_PASSWORD
+            value: "{{.Values.config.redis.password}}"
           - name: KAFKA_BROKERS
             value: "{{.Values.config.kafka.brokers}}"
           - name: KT__IMPORT_FILE
