@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "redis.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "redis.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "redis.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "redis.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "redis.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: redis
+          image: bitnami/redis:7.4.2
+          ports:
+            - name: controller
+              containerPort: 6379
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 1
+              memory: 2Gi
+            requests:
+              cpu: 300m
+              memory: 512Mi
+          livenessProbe:
+            initialDelaySeconds: 60
+            failureThreshold: 5
+            tcpSocket:
+              port: 6379
+          readinessProbe:
+            initialDelaySeconds: 30
+            failureThreshold: 5
+            tcpSocket:
+              port: 6379
+  volumeClaimTemplates:
+    - metadata:
+        name: {{ include "redis.fullname" . }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: "{{.Values.config.storageClass}}"
+        resources:
+          requests:
+            storage: {{.Values.config.storageSize}}
+

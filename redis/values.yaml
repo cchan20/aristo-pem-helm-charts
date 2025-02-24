@@ -1,0 +1,11 @@
+config:
+  storageClass: ebs-sc
+  storageSize: 5Gi
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 6379
+  targetPort: 6379
