@@ -107,6 +107,10 @@ spec:
             value: "{{.Values.config.services.aristoMasterServiceHost}}"
           - name: ARISTO_MASTER_SERVICE_API_KEY
             value: "{{.Values.config.services.aristoMasterServiceApiKey}}"
+          - name: WHAPI_SERVICE_HOST
+            value: "{{.Values.config.whapi.host}}"
+          - name: WHAPI_API_KEY
+            value: "{{.Values.config.whapi.apikey}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:

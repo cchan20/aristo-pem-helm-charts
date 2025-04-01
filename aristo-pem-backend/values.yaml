@@ -46,6 +46,9 @@ config:
     consumerGroup:
       importFile: import-file
       updateDashboard: update-dashboard
+  whapi:
+    host: https://gate.whapi.cloud/
+    apikey: tfSsgRG3zdJ06VhFi7g6r7iGofQlzIDH
   redis:
     host: redis
     username: default
