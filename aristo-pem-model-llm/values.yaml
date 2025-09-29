@@ -4,7 +4,7 @@
 replicaCount: 1
 config:
   openai:
-    apiKey: 
+    apiKey: openai_key
     model: openapi_model
   gemini:
     apiKey: gemini_key
