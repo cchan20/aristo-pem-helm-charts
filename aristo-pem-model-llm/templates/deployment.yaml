@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "aristo-pem-model-llm.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "aristo-pem-model-llm.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "aristo-pem-model-llm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "aristo-pem-model-llm.labels" . | nindent 8 }}
+	{{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "aristo-pem-model-llm.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+          - name: APP_ENV
+            value: "development"
+          - name: APP_DEBUG
+            value: "false"
+          - name: OPENAI_API_KEY
+            value: "{{.Values.config.openai.apiKey}}"
+          - name: OPENAI_MODEL
+            value: "{{.Values.config.openai.model}}"
+          - name: GEMINI_API_KEY
+            value: "{{.Values.config.gemini.apiKey}}"
+          - name: GEMINI_MODEL
+            value: "{{.Values.config.gemini.model}}"
+          - name: QWEN_API_BASE_URL
+            value: "{{.Values.config.qwen.apiBaseUrl}}"
+          - name: QWEN_API_KEY
+            value: "{{.Values.config.qwen.apiKey}}"
+          - name: QWEN_MODEL
+            value: "{{.Values.config.qwen.model}}"
+          - name: MONGODB_URI
+            value: "{{.Values.config.mongodb.uri}}"
+          - name: MONGODB_DB_NAME
+            value: "{{.Values.config.mongodb.dbName}}"
+          livenessProbe:
+            initialDelaySeconds: 15
+            tcpSocket:
+              port: {{ .Values.service.port }}
+          readinessProbe:
+            initialDelaySeconds: 5
+            tcpSocket:
+              port: {{ .Values.service.port }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
