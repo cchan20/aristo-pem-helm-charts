@@ -4,17 +4,17 @@
 replicaCount: 1
 config:
   openai:
-    apiKey: "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"
-    model: "gpt-4o"
+    apiKey: openapi_key
+    model: openapi_model
   gemini:
-    apiKey: "AIzaSyANkMS39JNKcG16QcEIG5ZXtsG2VvpGbyo"
-    model: "gemini-2.5-flash"
+    apiKey: gemini_key
+    model: gemini_model
   qwen:
     apiBaseUrl: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
-    apiKey: "sk-3a1bd779b1234eb3b443b5fde8735296"
-    model: "qwen-vl-max"
+    apiKey: qwen_key
+    model: qwen_model
   mongodb:
-    uri: "mongodb+srv://admin:falXpC20IAw03O6f@pemprod.vyftadg.mongodb.net/"
+    uri: ""
     database: "aristo"
 image:
   repository:  jasonchan0510/aristo
