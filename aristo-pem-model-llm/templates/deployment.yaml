@@ -63,7 +63,7 @@ spec:
           - name: MONGODB_URI
             value: "{{.Values.config.mongodb.uri}}"
           - name: MONGODB_DB_NAME
-            value: "{{.Values.config.mongodb.dbName}}"
+            value: "{{.Values.config.mongodb.database}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
