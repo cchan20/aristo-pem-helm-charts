@@ -20,7 +20,7 @@ image:
   repository:  jasonchan0510/aristo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: latest
+  tag: pem-model-llm-0.0.1
 imagePullSecrets:
 - name: regcred-dh
 nameOverride: ""
@@ -50,7 +50,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 3005
+  port: 3000
 ingress:
   enabled: false
   className: "nginx"
