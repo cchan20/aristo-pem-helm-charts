@@ -46,10 +46,6 @@ spec:
             value: "development"
           - name: APP_DEBUG
             value: "false"
-          - name: OPENAI_API_KEY
-            value: "{{.Values.config.openai.apiKey}}"
-          - name: OPENAI_MODEL
-            value: "{{.Values.config.openai.model}}"
           - name: GEMINI_API_KEY
             value: "{{.Values.config.gemini.apiKey}}"
           - name: GEMINI_MODEL
