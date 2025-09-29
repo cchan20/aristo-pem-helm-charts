@@ -3,6 +3,9 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 config:
+  openai:
+    apiKey: 
+    model: openapi_model
   gemini:
     apiKey: gemini_key
     model: gemini_model
