@@ -49,6 +49,9 @@ config:
   whapi:
     host: https://gate.whapi.cloud/
     apikey: tfSsgRG3zdJ06VhFi7g6r7iGofQlzIDH
+  cron:
+    analysisPendingMessageCronRun: "true"
+    analysisPendingMessageCronSchedule: "* * * * *"
   redis:
     host: redis
     username: default

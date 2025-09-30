@@ -111,6 +111,10 @@ spec:
             value: "{{.Values.config.whapi.host}}"
           - name: WHAPI_API_KEY
             value: "{{.Values.config.whapi.apikey}}"
+          - name: ANALYSIS_PENDING_MESSAGE_CRON_RUN
+            value: "{{.Values.config.cron.analysisPendingMessageCronRun}}"
+          - name: ANALYSIS_PENDING_MESSAGE_CRON_SCHEDULE
+            value: "{{.Values.config.cron.analysisPendingMessageCronSchedule}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
