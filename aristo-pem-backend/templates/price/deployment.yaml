@@ -111,6 +111,8 @@ spec:
             value: "{{.Values.config.whapi.host}}"
           - name: WHAPI_API_KEY
             value: "{{.Values.config.whapi.apikey}}"
+          - name: AI_AGENT_SERVICE_HOST
+            value: "{{.Values.config.services.aiAgentServiceHost}}"
           - name: ANALYSIS_PENDING_MESSAGE_CRON_RUN
             value: "{{.Values.config.cron.analysisPendingMessageCronRun}}"
           - name: ANALYSIS_PENDING_MESSAGE_CRON_SCHEDULE

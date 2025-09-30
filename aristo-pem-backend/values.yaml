@@ -32,6 +32,7 @@ config:
     whatsAppServiceHost: http://aristo-pem-whatsapp:3005
     aristoMasterServiceHost: ARISTO_SERVICE_HOST
     aristoMasterServiceApiKey: ARISTO_SERVICE_API_KEY
+    aiAgentServiceHost: AI_AGENT_SERVICE_HOST
   s3:
     region: ap-southeast-1
     publicBucket: public-bucket
