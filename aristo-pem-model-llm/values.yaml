@@ -13,16 +13,21 @@ config:
     apiBaseUrl: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
     apiKey: qwen_key
     model: qwen_model
+  deepseek:
+    apiKey: deepseek_key
+    model: deepseek_model
+    apiBaseUrl: "https://api.deepseek.com"
   mongodb:
     uri: ""
     database: "aristo"
+  useModel: "deepseek"
 image:
-  repository:  jasonchan0510/aristo
+  repository: jasonchan0510/aristo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: pem-model-llm-0.0.1
 imagePullSecrets:
-- name: regcred-dh
+  - name: regcred-dh
 nameOverride: ""
 fullnameOverride: ""
 serviceAccount:

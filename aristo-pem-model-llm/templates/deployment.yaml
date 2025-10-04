@@ -60,10 +60,18 @@ spec:
             value: "{{.Values.config.qwen.apiKey}}"
           - name: QWEN_MODEL
             value: "{{.Values.config.qwen.model}}"
+          - name: DEEPSEEK_API_KEY
+            value: "{{.Values.config.deepseek.apiKey}}"
+          - name: DEEPSEEK_MODEL
+            value: "{{.Values.config.deepseek.model}}"
+          - name: DEEPSEEK_API_BASE_URL
+            value: "{{.Values.config.deepseek.apiBaseUrl}}"
           - name: MONGODB_URI
             value: "{{.Values.config.mongodb.uri}}"
           - name: MONGODB_DB_NAME
             value: "{{.Values.config.mongodb.database}}"
+          - name: USE_MODEL
+            value: "{{.Values.config.useModel}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:
