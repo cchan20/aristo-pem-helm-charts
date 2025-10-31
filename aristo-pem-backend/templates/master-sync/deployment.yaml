@@ -117,6 +117,8 @@ spec:
             value: "{{.Values.config.cron.analysisPendingMessageCronRun}}"
           - name: ANALYSIS_PENDING_MESSAGE_CRON_SCHEDULE
             value: "{{.Values.config.cron.analysisPendingMessageCronSchedule}}"
+          - name: ARISTO_DATA_WAREHOUSE_HOST
+            value: "{{.Values.config.dataWarehouse.host}}"
           livenessProbe:
             initialDelaySeconds: 15
             tcpSocket:

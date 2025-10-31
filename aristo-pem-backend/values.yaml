@@ -57,6 +57,8 @@ config:
     host: redis
     username: default
     password: 9aNzS7K23V6m
+  dataWarehouse:
+    host: https://dw-api.primemory.hk
 replicaCount: 1
 image:
   repository:  jasonchan0510/aristo
