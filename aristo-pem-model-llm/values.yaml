@@ -25,7 +25,7 @@ image:
   repository: jasonchan0510/aristo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: pem-model-llm-0.0.1
+  tag: pem-model-llm-0.0.2
 imagePullSecrets:
   - name: regcred-dh
 nameOverride: ""
