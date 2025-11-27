@@ -18,7 +18,9 @@ spec:
     spec:
       containers:
         - name: redis
-          image: bitnami/redis:7.4.2
+          image: 
+            repository: bitnami/redis
+            tag: latest
           env:
             - name: REDIS_PASSWORD
               value: "{{.Values.config.redisPassword}}"
