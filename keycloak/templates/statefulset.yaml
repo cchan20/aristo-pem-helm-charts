@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: keycloak
-          image: bitnami/keycloak:22.0.5
+          image: bitnamilegacy/keycloak:22.0.5
           env:
             - name: KEYCLOAK_EXTRA_ARGS
               value: --hostname-strict-https=true
