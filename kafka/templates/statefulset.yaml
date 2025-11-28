@@ -32,8 +32,6 @@ spec:
               value: 0@localhost:9093
             - name: KAFKA_CFG_CONTROLLER_LISTENER_NAMES
               value: CONTROLLER
-            - name: KAFKA_ZOOKEEPER_CONNECT
-+             value: {{ default "zookeeper:2181" .Values.zookeeper.connect | quote }}
           ports:
             - name: broker
               containerPort: 9092
