@@ -64,7 +64,7 @@ image:
   repository:  jasonchan0510/aristo
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: api-gateway-2.0.12
+  tag: api-gateway-2.0.13
 imagePullSecrets:
 - name: regcred-dh
 nameOverride: ""
